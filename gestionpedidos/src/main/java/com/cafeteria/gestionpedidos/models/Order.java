@@ -19,10 +19,12 @@ public class Order {
     private String dessert;
     private Date date;
     // Order's state
+    private OrderState state;
 
     public Order(User user) {
         this.user = user;
         // Initialize state
+        this.state = OrderState.EMITIDO;
     }
 
     public Order() {
@@ -74,5 +76,21 @@ public class Order {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public void deliver() { setState(state.deliver(this)); }
+
+    public void pay() {
+        setState(state.pay(this));
+    }
+
+    public void cancel() {
+        setState(state.cancel(this));
+    }
+
+    public void setState(OrderState state) {
+        if (state != null && state != this.state) {
+            this.state = state;
+        }
     }
 }
