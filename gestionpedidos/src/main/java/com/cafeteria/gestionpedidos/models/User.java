@@ -6,10 +6,11 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "user_table")
 public class User {
 
-    @GeneratedValue
     @Id
+    @GeneratedValue
     private Long id;
     @Column(unique = true)
     private String email;
@@ -19,8 +20,9 @@ public class User {
     public User() {
     }
 
-    public User(String name, String pass) {
+    public User(String name, String email, String pass) {
         this.name = name;
+        this.email = email;
         this.pass = pass;
     }
 

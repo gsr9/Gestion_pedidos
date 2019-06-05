@@ -7,9 +7,10 @@ import java.util.Date;
 
 @Data
 @Entity
+@Table(name = "order_table")
 public class Order {
-
-    @GeneratedValue @Id
+    @Id
+    @GeneratedValue
     private Long id;
     @ManyToOne
     private User user;
