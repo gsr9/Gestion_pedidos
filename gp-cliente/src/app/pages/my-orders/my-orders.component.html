@@ -1,0 +1,60 @@
+<h1 class="title">Mis pedidos</h1>
+
+<table class="table is-striped is-fullwidth is-primary">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th class="is-hidden-mobile">Primer plato</th>
+      <th class="is-hidden-mobile">Segundo plato</th>
+      <th class="is-hidden-mobile">Postre</th>
+      <th>Estado</th>
+      <th>Operaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{order.date | date:'dd/MM/yy'}}</td>
+      <td class="is-hidden-mobile">{{order.firstPlate}}</td>
+      <td class="is-hidden-mobile">{{order.secondPlate}}</td>
+      <td class="is-hidden-mobile">{{order.dessert}}</td>
+      <td>{{order.state}}</td>
+      <td>
+        <div class="field is-grouped">
+          <p class="control is-hidden-tablet">
+            <a class="button is-link">
+              <span class="icon is-small">
+                <i class="fas fa-info"></i>
+              </span>
+            </a>
+          </p>
+          <p class="control" *ngIf="order.state === 'ENTREGADO'">
+            <a class="button is-success is-hidden-tablet">
+              <span class="icon is-small">
+                <i class="fas fa-euro-sign"></i>
+              </span>
+            </a>
+            <a class="button is-success op-btn is-hidden-mobile" (click)="payOrder(order.id)">
+              <span class="icon">
+                <i class="fas fa-euro-sign"></i>
+              </span>
+              <span>Pagar</span>
+            </a>
+          </p>
+          <p class="control " *ngIf="order.state === 'EMITIDO'">
+            <a class="button is-danger is-hidden-tablet">
+              <span class="icon is-small">
+                <i class="fas fa-trash-alt"></i>
+              </span>
+            </a>
+            <a class="button is-danger op-btn is-hidden-mobile" (click)="cancelOrder(order.id)">
+              <span class="icon">
+                <i class="fas fa-trash-alt"></i>
+              </span>
+              <span>Cancelar</span>
+            </a>
+          </p>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
