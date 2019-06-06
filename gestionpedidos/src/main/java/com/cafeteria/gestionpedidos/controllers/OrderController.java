@@ -7,17 +7,17 @@ import com.cafeteria.gestionpedidos.services.OrderNotFoundException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 public class OrderController {
 
     private final OrderRepository repository;
+
+    private final int  HOUR_LIMIT = 11;
 
     OrderController(OrderRepository repository) {
         this.repository = repository;
@@ -68,16 +68,15 @@ public class OrderController {
     public void deliverOrders() {
         List<Order> orders = repository.findByState(OrderState.EMITIDO);
         orders = orders.stream().filter(o -> {
+            // Time limit -> today at 11:00:00
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 11);
+            calendar.set(Calendar.HOUR_OF_DAY, HOUR_LIMIT);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
-            Date today = calendar.getTime();
-
-            return o.getDate().before(today);
+            Date limit = calendar.getTime();
+            // Check order's date is less than limit
+            return o.getDate().before(limit);
         }).collect(Collectors.toList());
-
-        System.out.println(orders);
 
         orders.forEach(order -> order.setState(OrderState.ENTREGADO));
 

@@ -1,8 +1,11 @@
 package com.cafeteria.gestionpedidos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -10,12 +13,15 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String email;
     private String name;
     private String pass;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders;
 
     public User() {
     }
@@ -56,5 +62,16 @@ public class User {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + "," +
+                " email=" + email + "," +
+                " name=" + name + "]";
     }
 }
