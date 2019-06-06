@@ -6,6 +6,7 @@ import com.cafeteria.gestionpedidos.repositories.OrderRepository;
 import com.cafeteria.gestionpedidos.repositories.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.relation.RelationNotFoundException;
 import java.util.List;
 
 @RestController
@@ -38,6 +39,10 @@ public class UserController {
 
     @PostMapping("/users")
     User registerUser(@RequestBody User user){
+        User auxUser = repository.findByEmail(user.getEmail());
+        if(auxUser != null){
+            throw new RuntimeException("El usuario ya existe");
+        }
         return repository.save(user);
     }
 
