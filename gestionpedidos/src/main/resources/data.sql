@@ -6,5 +6,5 @@ insert into user_table (id, name, email, pass) values
 
 /* Orders */
 insert into order_table (id, first_plate, second_plate, dessert, date, user_id, state) values
-(1, 'Ensalada murciana', 'Fideuá', 'Fruta de temporada', '2019-06-05', 1, 1),
+(1, 'Ensalada murciana', 'Fideuá', 'Fruta de temporada', '2019-06-05', 1, 0),
 (2, 'Ensalada alicantina', 'Paella de pollo', 'Brownie', '2019-06-05', 2, 1);

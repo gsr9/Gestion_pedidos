@@ -10,21 +10,19 @@ import java.util.Date;
 @Table(name = "order_table")
 public class Order {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private User user;
     private String firstPlate;
     private String secondPlate;
     private String dessert;
-    private Date date;
+    private Date date = new Date();
     // Order's state
-    private OrderState state;
+    private OrderState state = OrderState.EMITIDO;
 
     public Order(User user) {
         this.user = user;
-        // Initialize state
-        this.state = OrderState.EMITIDO;
     }
 
     public Order() {
