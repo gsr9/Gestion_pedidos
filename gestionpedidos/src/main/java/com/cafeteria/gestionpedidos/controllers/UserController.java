@@ -4,6 +4,7 @@ import com.cafeteria.gestionpedidos.models.Order;
 import com.cafeteria.gestionpedidos.models.User;
 import com.cafeteria.gestionpedidos.repositories.OrderRepository;
 import com.cafeteria.gestionpedidos.repositories.UserRepository;
+import com.cafeteria.gestionpedidos.services.UserNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.relation.RelationNotFoundException;
@@ -41,7 +42,7 @@ public class UserController {
     User registerUser(@RequestBody User user){
         User auxUser = repository.findByEmail(user.getEmail());
         if(auxUser != null){
-            throw new RuntimeException("El usuario ya existe");
+            throw new UserNotFoundException(user.getId());
         }
         return repository.save(user);
     }
