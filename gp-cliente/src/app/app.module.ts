@@ -6,9 +6,12 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { MyOrdersModule } from './pages/my-orders/my-orders.module';
 import { HttpClientModule } from '@angular/common/http';
+import { NewOrderModule } from './pages/new-order/new-order.module';
 
 const routes = [
   { path: '', loadChildren: './pages/my-orders/my-orders.module#MyOrdersModule' },
+  { path: 'mispedidos', loadChildren: './pages/my-orders/my-orders.module#MyOrdersModule' },
+  { path: 'nuevopedido', loadChildren: './pages/new-order/new-order.module#NewOrderModule'},
 ];
 
 @NgModule({
@@ -18,8 +21,7 @@ const routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    HttpClientModule,
-    MyOrdersModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
