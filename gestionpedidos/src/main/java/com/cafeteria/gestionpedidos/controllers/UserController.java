@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.management.relation.RelationNotFoundException;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class UserController {
 
