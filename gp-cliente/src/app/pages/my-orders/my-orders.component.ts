@@ -22,11 +22,10 @@ export class MyOrdersComponent implements OnInit {
     this.getData();
   }
 
+// tslint:disable-next-line: use-life-cycle-interface
   ngDoCheck(): void {
-    //Called every time that the input properties of a component or a directive are checked.
     console.log('CAMBIOS: ');
-    this.filteredOrders.sort((a, b) => a.date < b.date ? 1 : 0);
-
+    this.filteredOrders = this.filteredOrders.sort((a, b) => a.date < b.date ? 1 : -1);
   }
 
   getData() {

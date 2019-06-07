@@ -1,80 +1,69 @@
-<ul class="steps my-step-style has-content-centered is-horizontal">
-  <li class="steps-segment" [ngClass]="checkStep(1)" (click)="setStep(1)">
-    <span class="steps-marker">
-      <span class="icon">
-        <i>1</i>
-      </span>
-    </span>
-    <div class="steps-content is-hidden-mobile">
-      <p class="is-size-5">Primer plato</p>
-    </div>
-  </li>
-  <li class="steps-segment" [ngClass]="checkStep(2)" (click)="setStep(2)">
-    <span class="steps-marker">
-      <span class="icon">
-        <i>2</i>
-      </span>
-    </span>
-    <div class="steps-content is-hidden-mobile">
-      <p class="is-size-5">Segundo plato</p>
-    </div>
-  </li>
-  <li class="steps-segment" [ngClass]="checkStep(3)" (click)="setStep(3)">
-    <span class="steps-marker">
-      <span class="icon">
-        <i>3</i>
-      </span>
-    </span>
-    <div class="steps-content is-hidden-mobile">
-      <p class="is-size-5">Postre</p>
-    </div>
-  </li>
-  <li class="steps-segment" [ngClass]="checkStep(4)" (click)="setStep(4)">
-    <span class="steps-marker">
-      <span class="icon">
-        <i class="fa fa-check"></i>
-      </span>
-    </span>
-    <div class="steps-content is-hidden-mobile">
-      <p class="is-size-5">Confirmación</p>
-    </div>
-  </li>
-</ul>
-
-<section class="section">
-  <div class="container">
-    <div *ngIf="step === 1">
-      <h1 class="title">Elige entre los siguientes platos</h1>
-      <div class="columns is-multiline">
-        <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
-        <div class="column tag is-medium is-2" *ngFor="let plate of firstPlates" [ngClass]="isPlateSelected(plate)"
-          (click)="selectPlate(plate)">
-          {{plate.name}}
-        </div>
-      </div>
-    </div>
-    <div *ngIf="step === 2">
-      <h1 class="title">Elige entre los siguientes platos</h1>
-      <div class="columns is-multiline">
-        <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
-        <div class="column tag is-medium is-2" *ngFor="let plate of secondPlates" [ngClass]="isPlateSelected(plate)"
-          (click)="selectPlate(plate)">
-          <p>{{plate.name}}</p>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="step === 3">
-      <h1 class="title">Elige entre los siguientes postres</h1>
-      <div class="columns is-multiline">
-        <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo postre</div>
-        <div class="column tag is-medium is-2" *ngFor="let plate of desserts" [ngClass]="isPlateSelected(plate)"
-          (click)="selectPlate(plate)">
-          <p>{{plate.name}}</p>
-        </div>
+<app-steps (setStepEvent)="setStep($event)"></app-steps>
+<div class="container">
+  <div *ngIf="step === 1" class="center">
+    <h1 class="title">Elige entre los siguientes platos</h1>
+    <div class="columns is-multiline">
+      <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
+      <div class="column tag is-medium is-2" *ngFor="let plate of firstPlates" [ngClass]="isPlateSelected(plate)"
+        (click)="selectPlate(plate)">
+        {{plate.name}}
       </div>
     </div>
   </div>
-</section>
+  <div *ngIf="step === 2" class="center">
+    <h1 class="title">Elige entre los siguientes platos</h1>
+    <div class="columns is-multiline">
+      <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
+      <div class="column tag is-medium is-2" *ngFor="let plate of secondPlates" [ngClass]="isPlateSelected(plate)"
+        (click)="selectPlate(plate)">
+        <p>{{plate.name}}</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="step === 3" class="center">
+    <h1 class="title">Elige entre los siguientes postres</h1>
+    <div class="columns is-multiline">
+      <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo postre</div>
+      <div class="column tag is-medium is-2" *ngFor="let plate of desserts" [ngClass]="isPlateSelected(plate)"
+        (click)="selectPlate(plate)">
+        <p>{{plate.name}}</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="step === 4" class="center">
+    <div class="box has-text-centered">
+      <article class="message is-link" *ngIf="firstSelected !== null">
+        <div class="message-header">
+          <p>Primer plato</p>
+        </div>
+        <div class="message-body">
+          {{firstSelected}}
+        </div>
+      </article>
+
+      <article class="message is-primary" *ngIf="secondSelected !== null">
+        <div class="message-header">
+          <p>Segundo plato</p>
+        </div>
+        <div class="message-body">
+          {{secondSelected}}
+        </div>
+      </article>
+
+      <article class="message is-info" *ngIf="dessertSelected !== null">
+        <div class="message-header">
+          <p class="">Postre</p>
+        </div>
+        <div class="message-body">
+          {{dessertSelected}}
+        </div>
+      </article>
+    </div>
+    <h1 class="title">Total: 12€</h1>
+    <button class="button is-primary is-large is-fullwidth" (click)="saveOrder()">Finalizar pedido</button>
+  </div>
+</div>
+
 
 <div class="modal" [ngClass]="showModal()">
   <div class="modal-background"></div>

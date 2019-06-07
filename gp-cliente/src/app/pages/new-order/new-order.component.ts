@@ -2,6 +2,10 @@ import { PlateService } from './../../services/plate.service';
 import { Component, OnInit } from '@angular/core';
 import { Plate } from 'src/app/models/plate.model';
 import { FormBuilder, Validators } from '@angular/forms';
+import { OrderService } from 'src/app/services/order.service';
+import { Order } from 'src/app/models/order.model';
+import { User } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-order',
@@ -17,15 +21,20 @@ export class NewOrderComponent implements OnInit {
 
   types = ['Primero', 'Segundo', 'Postre'];
 
-  firstSelected = '';
-  secondSelected = '';
-  dessertSelected = '';
+  firstSelected: string = null;
+  secondSelected: string = null;
+  dessertSelected: string = null;
 
   modalOpen = false;
 
   addPlateForm = this.fb.group({ 'plateToAdd': ['', Validators.required] });
 
-  constructor(private plateService: PlateService, private fb: FormBuilder) { }
+  constructor(
+    private plateService: PlateService,
+    private fb: FormBuilder,
+    private orderService: OrderService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.plateService.getPlates().subscribe((plates: Plate[]) => {
@@ -33,13 +42,6 @@ export class NewOrderComponent implements OnInit {
       this.secondPlates = plates.filter(plate => plate.type === 'Segundo');
       this.desserts = plates.filter(plate => plate.type === 'Postre');
     });
-  }
-
-  checkStep(n: number) {
-    if (n === this.step) {
-      return 'is-active';
-    }
-    return '';
   }
 
   setStep(n: number) {
@@ -81,9 +83,13 @@ export class NewOrderComponent implements OnInit {
     this.modalOpen = false;
   }
 
+  openModalExternal() {
+    this.openModal();
+  }
+
   savePlate() {
     console.log(this.addPlateForm.controls.plateToAdd.value);
-    let plate: Plate = new Plate();
+    const plate: Plate = new Plate();
     plate.name = this.addPlateForm.controls.plateToAdd.value;
     plate.type = this.types[this.step - 1];
 
@@ -96,6 +102,20 @@ export class NewOrderComponent implements OnInit {
         this.desserts.push(plate);
       }
       this.closeModal();
+    });
+  }
+
+  saveOrder() {
+    const order: Order = new Order();
+    order.firstPlate = this.firstSelected;
+    order.secondPlate = this.secondSelected;
+    order.dessert = this.dessertSelected;
+    order.date = new Date();
+    const user: User = new User();
+    user.id = 1;
+    order.user = user;
+    this.orderService.addOrder(order).subscribe(data => {
+      this.router.navigateByUrl('/mispedidos');
     });
   }
 }
