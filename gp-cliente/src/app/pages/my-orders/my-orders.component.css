@@ -1,3 +1,30 @@
 .op-btn {
     width: 6em;
 }
+
+.EMITIDO {
+    background: #F5F2EE;
+}
+
+.ENTREGADO {
+    background: #53B6CC;
+    color: white
+}
+
+.PAGADO {
+    background: #37A141;
+    color: white;
+}
+
+.CANCELADO {
+    background: #D94136;
+    color: white;
+}
+
+.filter {
+    background-color: white;
+    border-color: white;
+    color:black;
+    box-shadow: none;
+    pointer-events: none
+}

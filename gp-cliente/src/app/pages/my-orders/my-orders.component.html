@@ -1,5 +1,12 @@
 <h1 class="title">Mis pedidos</h1>
 
+<div class="is-pulled-right is-grouped field">
+  <p class="control button filter">Mostrando:</p>
+  <p class="control"><a class="button EMITIDO" (click)="filter('EMITIDO')" [ngClass]="switch('EMITIDO')"> Emitido </a></p>
+  <p class="control"><a class="button ENTREGADO" (click)="filter('ENTREGADO')" [ngClass]="switch('ENTREGADO')"> Entregado </a></p>
+  <p class="control"><a class="button PAGADO" (click)="filter('PAGADO')" [ngClass]="switch('PAGADO')"> Pagado </a></p>
+  <p class="control"><a class="button CANCELADO" (click)="filter('CANCELADO')" [ngClass]="switch('CANCELADO')"> Cancelado </a></p>
+</div>
 <table class="table is-striped is-fullwidth is-primary">
   <thead>
     <tr>
@@ -12,12 +19,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let order of orders">
+    <tr *ngFor="let order of filteredOrders">
       <td>{{order.date | date:'dd/MM/yy'}}</td>
       <td class="is-hidden-mobile">{{order.firstPlate}}</td>
       <td class="is-hidden-mobile">{{order.secondPlate}}</td>
       <td class="is-hidden-mobile">{{order.dessert}}</td>
-      <td>{{order.state}}</td>
+      <td><span class="tag is-medium" [ngClass]="order.state">{{order.state}}</span></td>
       <td>
         <div class="field is-grouped">
           <p class="control is-hidden-tablet">
