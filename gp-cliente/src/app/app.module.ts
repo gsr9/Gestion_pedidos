@@ -1,17 +1,18 @@
-import { OrderService } from './services/order.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { MyOrdersModule } from './pages/my-orders/my-orders.module';
 import { HttpClientModule } from '@angular/common/http';
-import { NewOrderModule } from './pages/new-order/new-order.module';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes = [
-  { path: '', loadChildren: './pages/my-orders/my-orders.module#MyOrdersModule' },
-  { path: 'mispedidos', loadChildren: './pages/my-orders/my-orders.module#MyOrdersModule' },
-  { path: 'nuevopedido', loadChildren: './pages/new-order/new-order.module#NewOrderModule'},
+  //{ path: '', loadChildren: './pages/my-orders/my-orders.module#MyOrdersModule' },
+  { path: '', loadChildren: './pages/login/login.module#LoginModule' },
+  { path: 'login', loadChildren: './pages/login/login.module#LoginModule' },
+  { path: 'registro', loadChildren: './pages/register/register.module#RegisterModule' },
+  { path: 'mispedidos', loadChildren: './pages/my-orders/my-orders.module#MyOrdersModule', canActivate: [AuthGuardService] },
+  { path: 'nuevopedido', loadChildren: './pages/new-order/new-order.module#NewOrderModule', canActivate: [AuthGuardService] }
 ];
 
 @NgModule({
@@ -23,7 +24,7 @@ const routes = [
     RouterModule.forRoot(routes),
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,55 @@
+<section class="">
+  <div class="columns is-vcentered is-centered">
+    <div class="column is-8">
+      <h1 class="title has-text-centered">¡Bienvenido a tu cafetería!</h1>
+      <div class="box">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <form [formGroup]="onLoginForm">
+              <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                  <input class="input is-medium" type="email" placeholder="Correo electrónico" formControlName="email">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                </p>
+                <p class="control has-text-danger"
+                  *ngIf="onLoginForm.get('email').touched && onLoginForm.get('email').invalid">
+                  Email incorrecto
+                </p>
+              </div>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input is-medium" type="password" placeholder="Contraseña" formControlName="password">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+                <p class="control has-text-danger"
+                  *ngIf="onLoginForm.get('password').touched && onLoginForm.get('password').hasError('required')">
+                  Password incorrecto
+                </p>
+              </div>
+              <div class="field is-link">
+                <p class="control has-text-centered">
+                  <button class="button is-text has-text-link" routerLink="/registro">
+                    ¿Aún no tienes cuenta? Regístrate aquí
+                  </button>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control">
+                  <button class="button is-success is-medium is-fullwidth" (click)="login()"
+                    [disabled]="!onLoginForm.valid">
+                    Acceder
+                  </button>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
