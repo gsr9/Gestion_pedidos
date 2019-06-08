@@ -17,8 +17,8 @@
       <div *ngIf="step === 1" class="center">
         <h1 class="title">Elige entre los siguientes platos</h1>
         <div class="columns is-multiline">
-          <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
-          <div class="column tag is-medium is-2" *ngFor="let plate of firstPlates" [ngClass]="isPlateSelected(plate)"
+          <div class="button column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
+          <div class="button column tag is-medium is-2" *ngFor="let plate of firstPlates" [ngClass]="isPlateSelected(plate)"
             (click)="selectPlate(plate)">
             {{plate.name}}
           </div>
@@ -29,8 +29,8 @@
       <div *ngIf="step === 2" class="center">
         <h1 class="title">Elige entre los siguientes platos</h1>
         <div class="columns is-multiline">
-          <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
-          <div class="column tag is-medium is-2" *ngFor="let plate of secondPlates" [ngClass]="isPlateSelected(plate)"
+          <div class="button column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
+          <div class="button column tag is-medium is-2" *ngFor="let plate of secondPlates" [ngClass]="isPlateSelected(plate)"
             (click)="selectPlate(plate)">
             <p>{{plate.name}}</p>
           </div>
@@ -41,8 +41,8 @@
       <div *ngIf="step === 3" class="center">
         <h1 class="title">Elige entre los siguientes postres</h1>
         <div class="columns is-multiline">
-          <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo postre</div>
-          <div class="column tag is-medium is-2" *ngFor="let plate of desserts" [ngClass]="isPlateSelected(plate)"
+          <div class="button column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo postre</div>
+          <div class="button column tag is-medium is-2" *ngFor="let plate of desserts" [ngClass]="isPlateSelected(plate)"
             (click)="selectPlate(plate)">
             <p>{{plate.name}}</p>
           </div>
@@ -135,8 +135,8 @@
 <div class="modal" [ngClass]="orderSuccess ? 'is-active' : ''">
   <div class="modal-background"></div>
   <div class="modal-card">
-    <header class="modal-card-head  has-background-success has-text-white">
-      <p class="modal-card-title has-text-centered">Pedido realizado con éxito</p>
+    <header class="modal-card-head  has-background-success">
+      <p class="modal-card-title has-text-centered has-text-white">Pedido realizado con éxito</p>
       <button class="delete" aria-label="close" routerLink="/mispedidos"></button>
     </header>
     <section class="modal-card-body">

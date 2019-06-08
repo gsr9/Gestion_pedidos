@@ -1,0 +1,25 @@
+.is-danger {
+  background-color: #ba3f2d !important;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+h1.title {
+  margin: 0px !important;
+  color: white;
+  font-weight: 600;
+}
+@media (min-width: 500px) {
+  img {
+    height: auto;
+    max-width: 100%;
+    width: 14vw;
+  }
+
+  .navbar-item img{
+      max-height: 100%;
+  }
+}

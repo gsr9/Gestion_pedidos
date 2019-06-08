@@ -2,3 +2,10 @@
     padding-top: 5vh;
     padding-bottom: 5vh;
 }
+
+.bg {
+    height: 75vh;
+    width: 100%;
+    background: #083ba91f;
+    border-radius: 144px;
+}

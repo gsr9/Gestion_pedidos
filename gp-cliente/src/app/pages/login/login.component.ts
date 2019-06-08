@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
     'password': ['', Validators.required]
   });
 
+  wrongUser = false;
+
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
@@ -38,8 +40,13 @@ export class LoginComponent implements OnInit {
     user.pass = pass;
 
     this.loginService.login(user).subscribe((u: User) => {
-      localStorage.setItem('user', JSON.stringify(u));
-      this.router.navigateByUrl('/mispedidos');
+      if (u) {
+        localStorage.setItem('user', JSON.stringify(u));
+        this.router.navigateByUrl('/mispedidos');
+        this.wrongUser = false;
+      } else {
+        this.wrongUser = true;
+      }
     });
   }
 

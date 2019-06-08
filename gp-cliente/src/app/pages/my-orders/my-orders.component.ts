@@ -24,20 +24,17 @@ export class MyOrdersComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ENTRO EN NG ON INIT')
     this.user = this.userService.getUser();
     this.getData();
   }
 
   // tslint:disable-next-line: use-life-cycle-interface
   ngDoCheck(): void {
-    console.log('CAMBIOS: ');
     this.filteredOrders = this.filteredOrders.sort((a, b) => a.date < b.date ? 1 : -1);
   }
 
   getData() {
     this.orderService.getOrdersByUser(this.user.id).subscribe((data: Order[]) => {
-      console.log(data)
       this.orders = data;
       this.filteredOrders = data;
     });
