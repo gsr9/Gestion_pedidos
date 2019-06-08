@@ -108,8 +108,6 @@ export class NewOrderComponent implements OnInit {
   }
 
   saveOrder() {
-    this.orderSuccess = true;
-    return;
     const order: Order = new Order();
     order.firstPlate = this.firstSelected;
     order.secondPlate = this.secondSelected;
@@ -119,7 +117,6 @@ export class NewOrderComponent implements OnInit {
     user.id = 1;
     order.user = user;
     this.orderService.addOrder(order).subscribe(data => {
-      // this.router.navigateByUrl('/mispedidos');
       this.orderSuccess = true;
     });
   }
@@ -158,5 +155,13 @@ export class NewOrderComponent implements OnInit {
       this.price += 3;
     }
     return this.price;
+  }
+
+  getAvailable() {
+    const date = new Date();
+    if (date.getHours() < 11) {
+      return 'hoy';
+    }
+    return 'mañana';
   }
 }

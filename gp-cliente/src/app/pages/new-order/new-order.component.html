@@ -135,13 +135,13 @@
 <div class="modal" [ngClass]="orderSuccess ? 'is-active' : ''">
   <div class="modal-background"></div>
   <div class="modal-card">
-    <header class="modal-card-head  has-background-success">
+    <header class="modal-card-head  has-background-success has-text-white">
       <p class="modal-card-title has-text-centered">Pedido realizado con éxito</p>
       <button class="delete" aria-label="close" routerLink="/mispedidos"></button>
     </header>
     <section class="modal-card-body">
       <div class="field">
-        <p>Hemos tomado nota de tu pedido y lo tendrás disponible {{available}} a partir de las 13.</p>
+        <p>Hemos tomado nota de tu pedido y lo tendrás disponible {{getAvailable()}} a partir de las 13.</p>
         <p>¡Muchas gracias por confiar en nosotros!</p>
       </div>
     </section>

@@ -14,6 +14,9 @@ export class MyOrdersComponent implements OnInit {
   filteredOrders: Order[] = [];
   filters: string[] = [];
 
+  confirmation = false;
+  confirmationId = 0;
+
   constructor(private orderService: OrderService) {
   }
 
@@ -22,7 +25,7 @@ export class MyOrdersComponent implements OnInit {
     this.getData();
   }
 
-// tslint:disable-next-line: use-life-cycle-interface
+  // tslint:disable-next-line: use-life-cycle-interface
   ngDoCheck(): void {
     console.log('CAMBIOS: ');
     this.filteredOrders = this.filteredOrders.sort((a, b) => a.date < b.date ? 1 : -1);
@@ -35,9 +38,14 @@ export class MyOrdersComponent implements OnInit {
     });
   }
 
-  cancelOrder(id: number) {
-    this.orderService.cancelOrder(id).subscribe(data => {
+  cancelOrderConfirmation(id: number) {
+    this.confirmation = true;
+    this.confirmationId = id;
+  }
+  cancelOrder() {
+    this.orderService.cancelOrder(this.confirmationId).subscribe(data => {
       console.log('Resultado: ' + data);
+      this.confirmation = false;
       this.getData();
     });
   }
@@ -67,4 +75,7 @@ export class MyOrdersComponent implements OnInit {
     }
   }
 
+  closeModal() {
+    this.confirmation = false;
+  }
 }
