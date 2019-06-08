@@ -1,9 +1,14 @@
-.column {
+.column.tag.is-medium.is-2 {
   margin: 0.5rem;
   height: 10vh;
   width: 16rem;
 }
-
+.is-show-570 {
+  display: none;
+}
+.is-hidden-570 {
+  display: flex;
+}
 @media only screen and (min-width: 600px) {
   .box {
     width: 50vw;
@@ -24,6 +29,16 @@
     width: 95vw;
     margin-top: 1rem;
   }
+  .columns {
+    display: flex;
+    flex-direction: column;
+  }
+  .is-show-570 {
+    display: flex;
+  }
+  .is-hidden-570 {
+    display: none;
+  }
 }
 
 @media (min-width: 500px) and (max-width: 870px) {
@@ -31,7 +46,7 @@
     justify-content: center;
   }
   .columns {
-      display: flex;
+    display: flex;
   }
 }
 
@@ -44,4 +59,14 @@
 
 .container {
   margin-top: 2rem;
+}
+
+.modal-card-foot {
+  border-top: none;
+}
+.modal-card-head,
+.modal-card-foot {
+  justify-content: center;
+  background-color: white;
+  /* padding: 10px; */
 }

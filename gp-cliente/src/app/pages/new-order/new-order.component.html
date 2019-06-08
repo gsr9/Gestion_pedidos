@@ -1,70 +1,113 @@
-<app-steps (setStepEvent)="setStep($event)"></app-steps>
-<div class="container">
-  <div *ngIf="step === 1" class="center">
-    <h1 class="title">Elige entre los siguientes platos</h1>
-    <div class="columns is-multiline">
-      <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
-      <div class="column tag is-medium is-2" *ngFor="let plate of firstPlates" [ngClass]="isPlateSelected(plate)"
-        (click)="selectPlate(plate)">
-        {{plate.name}}
-      </div>
-    </div>
-  </div>
-  <div *ngIf="step === 2" class="center">
-    <h1 class="title">Elige entre los siguientes platos</h1>
-    <div class="columns is-multiline">
-      <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
-      <div class="column tag is-medium is-2" *ngFor="let plate of secondPlates" [ngClass]="isPlateSelected(plate)"
-        (click)="selectPlate(plate)">
-        <p>{{plate.name}}</p>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="step === 3" class="center">
-    <h1 class="title">Elige entre los siguientes postres</h1>
-    <div class="columns is-multiline">
-      <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo postre</div>
-      <div class="column tag is-medium is-2" *ngFor="let plate of desserts" [ngClass]="isPlateSelected(plate)"
-        (click)="selectPlate(plate)">
-        <p>{{plate.name}}</p>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="step === 4" class="center">
-    <div class="box has-text-centered">
-      <article class="message is-link" *ngIf="firstSelected !== null">
-        <div class="message-header">
-          <p>Primer plato</p>
-        </div>
-        <div class="message-body">
-          {{firstSelected}}
-        </div>
-      </article>
+<app-steps (setStepEvent)="setStep($event)" [step]="step"></app-steps>
 
-      <article class="message is-primary" *ngIf="secondSelected !== null">
-        <div class="message-header">
-          <p>Segundo plato</p>
-        </div>
-        <div class="message-body">
-          {{secondSelected}}
-        </div>
-      </article>
+<div class="columns  is-vcentered">
 
-      <article class="message is-info" *ngIf="dessertSelected !== null">
-        <div class="message-header">
-          <p class="">Postre</p>
+  <!-- Back Button -->
+  <div class="column is-narrow is-hidden-570">
+    <button class="button icon is-large is-link is-pulled-left " (click)="stepBack()">
+      <span>
+        <i class="fas fa-arrow-left"></i>
+      </span>
+    </button>
+  </div>
+  <div class="column">
+    <div class="container">
+
+      <!-- STEP 1 -->
+      <div *ngIf="step === 1" class="center">
+        <h1 class="title">Elige entre los siguientes platos</h1>
+        <div class="columns is-multiline">
+          <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
+          <div class="column tag is-medium is-2" *ngFor="let plate of firstPlates" [ngClass]="isPlateSelected(plate)"
+            (click)="selectPlate(plate)">
+            {{plate.name}}
+          </div>
         </div>
-        <div class="message-body">
-          {{dessertSelected}}
+      </div>
+
+      <!-- STEP 2 -->
+      <div *ngIf="step === 2" class="center">
+        <h1 class="title">Elige entre los siguientes platos</h1>
+        <div class="columns is-multiline">
+          <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo plato</div>
+          <div class="column tag is-medium is-2" *ngFor="let plate of secondPlates" [ngClass]="isPlateSelected(plate)"
+            (click)="selectPlate(plate)">
+            <p>{{plate.name}}</p>
+          </div>
         </div>
-      </article>
+      </div>
+
+      <!-- STEP 3 -->
+      <div *ngIf="step === 3" class="center">
+        <h1 class="title">Elige entre los siguientes postres</h1>
+        <div class="columns is-multiline">
+          <div class="column tag is-medium is-2 is-primary" (click)="openModal()">Añadir nuevo postre</div>
+          <div class="column tag is-medium is-2" *ngFor="let plate of desserts" [ngClass]="isPlateSelected(plate)"
+            (click)="selectPlate(plate)">
+            <p>{{plate.name}}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div *ngIf="step === 4" class="center">
+        <div class="box has-text-centered">
+          <article class="message is-danger" *ngIf="noneSelected()">
+            <div class="message-body">
+              No se ha seleccionado ningún plato.
+            </div>
+          </article>
+          <article class="message is-link" *ngIf="firstSelected !== null">
+            <div class="message-header">
+              <p>Primer plato</p>
+            </div>
+            <div class="message-body">
+              {{firstSelected}}
+            </div>
+          </article>
+
+          <article class="message is-primary" *ngIf="secondSelected !== null">
+            <div class="message-header">
+              <p>Segundo plato</p>
+            </div>
+            <div class="message-body">
+              {{secondSelected}}
+            </div>
+          </article>
+
+          <article class="message is-info" *ngIf="dessertSelected !== null">
+            <div class="message-header">
+              <p class="">Postre</p>
+            </div>
+            <div class="message-body">
+              {{dessertSelected}}
+            </div>
+          </article>
+        </div>
+        <h1 class="title">Total: {{getPrice()}}€</h1>
+        <button class="button is-primary is-large is-fullwidth" (click)="saveOrder()"
+          [disabled]="noneSelected()">Finalizar pedido</button>
+      </div>
     </div>
-    <h1 class="title">Total: 12€</h1>
-    <button class="button is-primary is-large is-fullwidth" (click)="saveOrder()">Finalizar pedido</button>
+
+  </div>
+  <!-- Next Button -->
+  <div class="column is-narrow">
+    <!-- Back Button for mobile-->
+    <button class="button icon is-large is-link is-pulled-left is-show-570" (click)="stepBack()">
+      <span>
+        <i class="fas fa-arrow-left"></i>
+      </span>
+    </button>
+    <button class="button icon is-large is-link is-pulled-right" (click)="stepNext()">
+      <span>
+        <i class="fas fa-arrow-right"></i>
+      </span>
+    </button>
   </div>
 </div>
 
-
+<!-- Add new plate modal -->
 <div class="modal" [ngClass]="showModal()">
   <div class="modal-background"></div>
   <div class="modal-card">
@@ -85,5 +128,27 @@
         <button class="button is-success control" (click)="savePlate()">Añadir plato</button>
       </div>
     </section>
+  </div>
+</div>
+
+<!-- Correct order modal -->
+<div class="modal" [ngClass]="orderSuccess ? 'is-active' : ''">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head  has-background-success">
+      <p class="modal-card-title has-text-centered">Pedido realizado con éxito</p>
+      <button class="delete" aria-label="close" routerLink="/mispedidos"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <p>Hemos tomado nota de tu pedido y lo tendrás disponible {{available}} a partir de las 13.</p>
+        <p>¡Muchas gracias por confiar en nosotros!</p>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <div class="has-text-centered">
+        <button class="button is-success control" routerLink="/mispedidos">Ver mis pedidos</button>
+      </div>
+    </footer>
   </div>
 </div>

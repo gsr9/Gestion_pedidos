@@ -26,6 +26,8 @@ export class NewOrderComponent implements OnInit {
   dessertSelected: string = null;
 
   modalOpen = false;
+  price = 0;
+  orderSuccess = false;
 
   addPlateForm = this.fb.group({ 'plateToAdd': ['', Validators.required] });
 
@@ -106,6 +108,8 @@ export class NewOrderComponent implements OnInit {
   }
 
   saveOrder() {
+    this.orderSuccess = true;
+    return;
     const order: Order = new Order();
     order.firstPlate = this.firstSelected;
     order.secondPlate = this.secondSelected;
@@ -115,7 +119,44 @@ export class NewOrderComponent implements OnInit {
     user.id = 1;
     order.user = user;
     this.orderService.addOrder(order).subscribe(data => {
-      this.router.navigateByUrl('/mispedidos');
+      // this.router.navigateByUrl('/mispedidos');
+      this.orderSuccess = true;
     });
+  }
+
+  stepBack() {
+    if (this.step > 1) {
+      this.step--;
+    }
+  }
+
+  stepNext() {
+    if (this.step < 4) {
+      this.step++;
+    }
+  }
+
+  noneSelected() {
+    if (this.firstSelected == null && this.secondSelected == null && this.dessertSelected == null) {
+      return true;
+    }
+    return false;
+  }
+
+  getPrice() {
+    this.price = 0;
+    if (this.firstSelected && this.secondSelected && this.dessertSelected) {
+      return 9;
+    }
+    if (this.firstSelected !== null) {
+      this.price += 3;
+    }
+    if (this.secondSelected !== null) {
+      this.price += 4;
+    }
+    if (this.dessertSelected !== null) {
+      this.price += 3;
+    }
+    return this.price;
   }
 }

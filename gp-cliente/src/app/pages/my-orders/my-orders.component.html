@@ -65,3 +65,24 @@
     </tr>
   </tbody>
 </table>
+
+<div class="modal" [ngClass]="confirmation ? 'is-active' : ''">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head  has-background-success">
+        <p class="modal-card-title has-text-centered">Pedido realizado con éxito</p>
+        <button class="delete" aria-label="close" routerLink="/mispedidos"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field">
+          <p>Hemos tomado nota de tu pedido y lo tendrás disponible {{available}} a partir de las 13.</p>
+          <p>¡Muchas gracias por confiar en nosotros!</p>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="has-text-centered">
+          <button class="button is-success control" routerLink="/mispedidos">Ver mis pedidos</button>
+        </div>
+      </footer>
+    </div>
+  </div>
