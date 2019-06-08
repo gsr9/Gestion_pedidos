@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "spring": "java -jar ../gestionpedidos/target/gestionpedidos-0.0.1-SNAPSHOT.jar",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
