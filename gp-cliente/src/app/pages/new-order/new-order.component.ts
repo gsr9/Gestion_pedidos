@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { PlateService } from './../../services/plate.service';
 import { Component, OnInit } from '@angular/core';
 import { Plate } from 'src/app/models/plate.model';
@@ -18,6 +19,7 @@ export class NewOrderComponent implements OnInit {
   firstPlates: Plate[] = [];
   secondPlates: Plate[] = [];
   desserts: Plate[] = [];
+  user: User;
 
   types = ['Primero', 'Segundo', 'Postre'];
 
@@ -35,7 +37,7 @@ export class NewOrderComponent implements OnInit {
     private plateService: PlateService,
     private fb: FormBuilder,
     private orderService: OrderService,
-    private router: Router
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -44,6 +46,7 @@ export class NewOrderComponent implements OnInit {
       this.secondPlates = plates.filter(plate => plate.type === 'Segundo');
       this.desserts = plates.filter(plate => plate.type === 'Postre');
     });
+    this.user = this.userService.getUser();
   }
 
   setStep(n: number) {
@@ -113,9 +116,7 @@ export class NewOrderComponent implements OnInit {
     order.secondPlate = this.secondSelected;
     order.dessert = this.dessertSelected;
     order.date = new Date();
-    const user: User = new User();
-    user.id = 1;
-    order.user = user;
+    order.user = this.user;
     this.orderService.addOrder(order).subscribe(data => {
       this.orderSuccess = true;
     });

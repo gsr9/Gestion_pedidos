@@ -1,7 +1,9 @@
+import { UserService } from './../../services/user.service';
 import { Order } from './../../models/order.model';
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { OrderService } from 'src/app/services/order.service';
 import { filterQueryId } from '@angular/core/src/view/util';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-my-orders',
@@ -13,15 +15,17 @@ export class MyOrdersComponent implements OnInit {
   orders: Order[] = [];
   filteredOrders: Order[] = [];
   filters: string[] = [];
+  user: User;
 
   confirmation = false;
   confirmationId = 0;
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService, private userService: UserService) {
   }
 
   ngOnInit() {
     console.log('ENTRO EN NG ON INIT')
+    this.user = this.userService.getUser();
     this.getData();
   }
 
@@ -32,7 +36,8 @@ export class MyOrdersComponent implements OnInit {
   }
 
   getData() {
-    this.orderService.getOrders().subscribe((data: Order[]) => {
+    this.orderService.getOrdersByUser(this.user.id).subscribe((data: Order[]) => {
+      console.log(data)
       this.orders = data;
       this.filteredOrders = data;
     });

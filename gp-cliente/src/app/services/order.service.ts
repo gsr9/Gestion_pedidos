@@ -16,6 +16,10 @@ export class OrderService {
     return this.http.get(this.url);
   }
 
+  getOrdersByUser(id: number) {
+    return this.http.get('http://localhost:8080/users/' + id + '/orders');
+  }
+
   cancelOrder(id: number) {
     return this.http.post(this.url + `${id}/cancel`, '');
   }

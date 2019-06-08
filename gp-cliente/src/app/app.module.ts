@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './services/auth-guard.service';
+import { NavbarComponent } from './pages/navbar/navbar.component';
 
 const routes = [
   //{ path: '', loadChildren: './pages/my-orders/my-orders.module#MyOrdersModule' },
@@ -17,7 +18,8 @@ const routes = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

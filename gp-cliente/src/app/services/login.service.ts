@@ -13,8 +13,6 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(user: User) {
-    this.http.post(this.url, user).subscribe((u: User) => {
-      localStorage.setItem('user', JSON.stringify(u));
-    });
+    return this.http.post(this.url, user);
   }
 }

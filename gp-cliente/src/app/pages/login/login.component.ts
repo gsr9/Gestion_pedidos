@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -19,10 +20,14 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
+    private userService: UserService,
     private router: Router
-    ) { }
+  ) { }
 
   ngOnInit() {
+    if (this.userService.getUser()) {
+      this.router.navigateByUrl('/mispedidos');
+    }
   }
 
   login() {
@@ -32,8 +37,10 @@ export class LoginComponent implements OnInit {
     user.email = email;
     user.pass = pass;
 
-    this.loginService.login(user);
-    this.router.navigateByUrl('/');
+    this.loginService.login(user).subscribe((u: User) => {
+      localStorage.setItem('user', JSON.stringify(u));
+      this.router.navigateByUrl('/mispedidos');
+    });
   }
 
 }

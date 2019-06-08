@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
@@ -19,10 +20,14 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
     ) { }
 
   ngOnInit() {
+    if (this.userService.getUser()) {
+      this.router.navigateByUrl('/mispedidos');
+    }
   }
 
   register() {
@@ -36,6 +41,7 @@ export class RegisterComponent implements OnInit {
 
     this.userService.saveUser(user).subscribe((userSaved: User) => {
       localStorage.setItem('user', JSON.stringify(userSaved));
+      this.router.navigateByUrl('/mispedidos');
     })
 
   }
